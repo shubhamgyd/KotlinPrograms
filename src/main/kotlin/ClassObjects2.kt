@@ -1,4 +1,4 @@
-class Dog(val name: String) {
+class Dog(val name: String, s: String) {
     var hunger = 62
 
     fun feed() {
@@ -17,7 +17,7 @@ class Dog(val name: String) {
 
 fun main() {
 
-    val dog = Dog("Rex")
+    val dog = Dog("Rex", "Labrador")
 
     dog.feed() // Feeding Rex
     println("After feeding Rex's hunger got to "+dog.hunger)
