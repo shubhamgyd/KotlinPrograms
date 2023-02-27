@@ -1,3 +1,7 @@
+    /* Here what we have Grade with three attributes points, studentId, topicId and
+    Student with three attributes id, name, surname and
+    Teacher with four attributes name, surname, birthday, status and
+    Subject with four attributes name, teacher, isObligatory*/
 class Grade(
     val points: Int,
     val studentId: Int,
