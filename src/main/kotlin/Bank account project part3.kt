@@ -1,0 +1,156 @@
+/**
+ * Bank account project part 3
+ *
+ * Overview
+ * In this exercise, you will practice working with functions, loops, conditional
+ * statements and when expressions. You will write code to manage the bank account
+ * you created in the first part of the project. Also, you will execute different
+ * bank account operations that you already as functions in the second part of the
+ * project.
+ *
+ * The bank account type can be a checking, a debit or a credit bank account. The
+ * account's operations are withdrawals or deposits.
+ *
+ * When finished, your output will be similar to:
+ *
+ * What would you like to do?
+ * 1. Check bank account balance
+ * 2. Withdraw money
+ * 3. Deposit money
+ * 4. Close the app
+ * Which option do you choose? (1, 2, 3 or 4)
+ */
+
+fun main() {
+
+    var isSystemOpen = true
+    var option = 0
+    println("Welcome to your banking system.")
+    println("What type of account would you like to create?")
+    println("1. Debit account")
+    println("2. Credit account")
+    println("3. Checking account")
+    var accountType = ""
+    var userChoice = 0
+    while (accountType == "") {
+        println("Choose an option (1, 2 or 3)")
+        userChoice = (1..5).random()
+        println("The selected option is ${userChoice}.")
+
+        when (userChoice) {
+            1 -> accountType = "debit"
+            2 -> accountType = "credit"
+            3 -> accountType = "checking"
+            else -> continue
+        }
+    }
+    println("You have created a ${accountType} account.")
+
+    var accountBalance = (0..1000).random()
+    println("The checking balance is ${accountBalance} dollars.")
+    val money = (0..1000).random()
+    println("The amount you transferred is ${money} dollars.")
+
+
+
+
+        fun withdraw(amount: Int): Int {
+            accountBalance -= amount
+            println("You successfully withdrew ${amount} dollars. The checking balance is ${accountBalance} dollars.")
+            return amount
+        }
+
+        fun debitWithdraw(amount: Int): Int {
+            if (accountBalance == 0) {
+                println("Can't withdraw, no money on this account!")
+                return accountBalance
+            } else if (amount > accountBalance) {
+                println("Not enough money on this account! The checking balance is ${accountBalance} dollars.")
+                return 0
+            } else {
+                return withdraw(amount)
+            }
+        }
+
+        fun deposit(amount: Int): Int {
+            accountBalance += amount
+            println("You successfully deposited ${amount} dollars. The checking balance is ${accountBalance} dollars.")
+            return amount
+        }
+
+        fun creditDeposit(amount: Int): Int {
+            if (accountBalance == 0) {
+                println("This account is completely paid off! Do not deposit money!")
+                return accountBalance
+            } else if (accountBalance + amount > 0) {
+                println("Deposit failed, you tried to pay off an amount greater than the credit balance. The checking balance is ${accountBalance} dollars.")
+                return 0
+            } else if (amount == -accountBalance) {
+                accountBalance = 0
+                println("You have paid off this account!")
+                return amount
+            } else {
+                return deposit(amount)
+            }
+        }
+
+
+        fun transfer(mode:String) {
+            val transferAmount: Int
+
+            when (mode) {
+                "withdraw" -> {
+                    if (accountType == "debit") {
+                        transferAmount = debitWithdraw(money)
+                    } else {
+                        transferAmount = withdraw(money)
+                    }
+                    println("The amount you withdrew is ${transferAmount} dollars.")
+                }
+
+                "deposit" -> {
+                    if (accountType == "credit") {
+                        transferAmount = creditDeposit(money)
+                    } else {
+                        transferAmount = deposit(money)
+                    }
+                    println("The amount you deposited is $transferAmount dollars.")
+                }
+
+                else -> {println("Invalide")}
+            }
+        }
+
+    while (isSystemOpen == true) {
+        println("What would you like to do?")
+        println("1. Check bank account balance")
+        println("2. Withdraw money")
+        println("3. Deposit money")
+        println("4. Close the system")
+        println("What option do you choose? (1, 2, 3 or 4)")
+        var number = (1..4).random()
+        println("You choose the option $number")
+        when (number) {
+            1 -> {
+                println("The current account balance is $accountBalance")
+            }
+
+            2 -> {
+                transfer("withdraw")
+            }
+
+            3 -> transfer("deposit")
+
+            4 -> {
+                isSystemOpen = false
+            }
+
+
+        }
+    }
+}
+
+
+
+
+
